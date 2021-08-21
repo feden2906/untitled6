@@ -1,27 +1,35 @@
 import {useEffect, useState} from "react";
-import {getAxiosUsers} from "./services/Services.users";
+import {getAxiosUsers, getPostOfUser} from "./services/Services.users";
 
-import Posts from "./components/post/Posts";
+
+import Pos from "./components/pos/Pos";
 
 export default function App() {
     let [users, setUsers] = useState([]);
+    let [posts,setPost] = useState([])
+
+    const getChosenPost = (id)=>{
+        getPostOfUser(id).then(value => setPost([...value]));
+    }
 
     useEffect(() => {
         getAxiosUsers().then(({data}) => setUsers([...data]));
     }, []);
 
-const info = ()=>{
-    users.map(UsersItem =>(<Posts key={UsersItem.id} item={UsersItem.id}/>))
+const sets=(e)=>{
+    getChosenPost(e.target.value)
 }
 
   return (
-    <div className="App" onChange={info} >
+    <div className="App"  >
 
-        <select name="" id="">
+        <select onChange={sets}>
         {
             users.map(UsersItem =>(<option value={"UsersItem.id"}>{UsersItem.name}</option>   ))
         }
-
+            {
+                posts.map(UsersItem =>(<Pos key={UsersItem.id} item={UsersItem}/>))
+            }
         </select>
     </div>
   );
