@@ -6,10 +6,11 @@ import Pos from "./components/pos/Pos";
 
 export default function App() {
     let [users, setUsers] = useState([]);
+    let [chosenUser, setChosenUser] = useState({});
     let [posts,setPost] = useState([])
 
     const getChosenPost = (id)=>{
-        getPostOfUser(id).then(value => setPost([...value]));
+        getPostOfUser(id).then(({data}) => setPost([...data]));
     }
 
     useEffect(() => {
@@ -17,20 +18,21 @@ export default function App() {
     }, []);
 
 const sets=(e)=>{
+    setChosenUser(e.target.value)
     getChosenPost(e.target.value)
 }
 
   return (
     <div className="App"  >
 
-        <select onChange={sets}>
+        <select value={chosenUser} onChange={sets}>
         {
-            users.map(UsersItem =>(<option value={"UsersItem.id"}>{UsersItem.name}</option>   ))
+            users.map(UsersItem =>(<option value={UsersItem.id} key={UsersItem.id}>{UsersItem.name}</option>   ))
         }
-            {
-                posts.map(UsersItem =>(<Pos key={UsersItem.id} item={UsersItem}/>))
-            }
         </select>
+        {
+            posts.map(UsersItem =>(<Pos key={UsersItem.id} item={UsersItem}/>))
+        }
     </div>
   );
 }
