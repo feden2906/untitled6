@@ -25,7 +25,7 @@ const sets=(e)=>{
 
         <select onChange={sets}>
         {
-            users.map(UsersItem =>(<option value={"UsersItem.id"}>{UsersItem.name}</option>   ))
+            users.map(UsersItem =>(<option value={UsersItem.id}>{UsersItem.name}</option>   ))
         }
             {
                 posts.map(UsersItem =>(<Pos key={UsersItem.id} item={UsersItem}/>))
